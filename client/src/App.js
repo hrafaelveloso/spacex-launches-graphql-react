@@ -19,7 +19,7 @@ class App extends Component {
         <Router>
           <div className="container">
             <div className="row">
-              <div className="col-md-4 mx-auto">
+              <div className="col-md-5 mx-auto mt-2">
                 <img src={logo} alt="SpaceX" className="w-100" />
               </div>
             </div>

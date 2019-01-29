@@ -16,7 +16,7 @@ const LaunchItem = ({
   return (
     <div className="card card-body mb-3">
       <div className="row">
-        <div className="col-md-9">
+        <div className="col-md-10">
           <h4>
             Mission:{' '}
             <span
@@ -35,7 +35,7 @@ const LaunchItem = ({
           <p>Launch site: {site_name_long}</p>
           {details !== null && details.length > 1 ? <p>Details: {details}</p> : null}
         </div>
-        <div className="col-md-3">
+        <div className="col-md-2">
           <Link to={`/launch/${flight_number}`} className="btn btn-secondary">
             Launch details
           </Link>
