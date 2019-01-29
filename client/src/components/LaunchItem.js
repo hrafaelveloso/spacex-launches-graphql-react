@@ -9,6 +9,7 @@ const LaunchItem = ({
     mission_name,
     launch_date_local,
     launch_success,
+    details,
     launch_site: { site_name_long },
   },
 }) => {
@@ -32,6 +33,7 @@ const LaunchItem = ({
             Date: <Moment format="DD/MM/YYYY HH:mm">{launch_date_local}</Moment>
           </p>
           <p>Launch site: {site_name_long}</p>
+          {details !== null && details.length > 1 ? <p>Details: {details}</p> : null}
         </div>
         <div className="col-md-3">
           <Link to={`/launch/${flight_number}`} className="btn btn-secondary">

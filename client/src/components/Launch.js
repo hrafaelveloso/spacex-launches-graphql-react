@@ -20,6 +20,10 @@ const LAUNCH_QUERY = gql`
       launch_site {
         site_name_long
       }
+      launch_failure_details {
+        time
+        reason
+      }
     }
   }
 `;
@@ -33,8 +37,8 @@ export class Launch extends Component {
       <>
         <Query query={LAUNCH_QUERY} variables={{ flight_number }}>
           {({ loading, error, data }) => {
-            if (loading) return <h4>A carregar</h4>;
-            if (error) return <h4>Erro</h4>;
+            if (loading) return <h4>Loading</h4>;
+            if (error) return <h4>An error occured</h4>;
 
             const {
               mission_name,
@@ -44,6 +48,7 @@ export class Launch extends Component {
               launch_date_local,
               rocket: { rocket_id, rocket_name, rocket_type },
               launch_site: { site_name_long },
+              launch_failure_details,
             } = data.launch;
 
             return (
@@ -60,15 +65,23 @@ export class Launch extends Component {
                   </li>
                   <li className="list-group-item">Launch site: {site_name_long}</li>
                   <li className="list-group-item">
-                    Launch success:{' '}
+                    Launch status:{' '}
                     {launch_success === false ? (
-                      <span className="text-danger">No</span>
+                      <span className="text-danger">Failed</span>
                     ) : launch_success ? (
-                      <span className="text-success">Yes</span>
+                      <span className="text-success">Success</span>
                     ) : (
                       <span className="text-warning">Upcoming</span>
                     )}
                   </li>
+                  {launch_success === false ? (
+                    <>
+                      <li className="list-group-item">
+                        Elapsed time to failure: {launch_failure_details.time} seconds
+                      </li>
+                      <li className="list-group-item">Reason: {launch_failure_details.reason}</li>
+                    </>
+                  ) : null}
                 </ul>
                 <h4 className="mb-3">Rocket details</h4>
                 <ul className="list-group">
