@@ -11,6 +11,9 @@ const LAUNCHES_QUERY = gql`
       mission_name
       launch_date_local
       launch_success
+      launch_site {
+        site_name_long
+      }
     }
   }
 `;
