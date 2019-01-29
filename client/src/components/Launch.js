@@ -11,6 +11,7 @@ const LAUNCH_QUERY = gql`
       mission_name
       launch_year
       launch_success
+      details
       launch_date_local
       rocket {
         rocket_id
@@ -37,7 +38,7 @@ export class Launch extends Component {
       <>
         <Query query={LAUNCH_QUERY} variables={{ flight_number }}>
           {({ loading, error, data }) => {
-            if (loading) return <h4>Loading</h4>;
+            if (loading) return <h4>Loading launch info</h4>;
             if (error) return <h4>An error occured</h4>;
 
             const {
@@ -46,6 +47,7 @@ export class Launch extends Component {
               launch_year,
               launch_success,
               launch_date_local,
+              details,
               rocket: { rocket_id, rocket_name, rocket_type },
               launch_site: { site_name_long },
               launch_failure_details,
@@ -82,6 +84,9 @@ export class Launch extends Component {
                       <li className="list-group-item">Reason: {launch_failure_details.reason}</li>
                     </>
                   ) : null}
+                  {details !== null && details.length > 1 ? (
+                    <li className="list-group-item">Details: {details}</li>
+                  ) : null}
                 </ul>
                 <h4 className="mb-3">Rocket details</h4>
                 <ul className="list-group">
@@ -90,7 +95,7 @@ export class Launch extends Component {
                   <li className="list-group-item">Rocket type: {rocket_type}</li>
                 </ul>
                 <hr />
-                <Link to="/" className="btn btn-secondary">
+                <Link to="/" className="btn btn-secondary mb-5">
                   Back
                 </Link>
               </div>

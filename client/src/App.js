@@ -18,7 +18,11 @@ class App extends Component {
       <ApolloProvider client={client}>
         <Router>
           <div className="container">
-            <img src={logo} alt="SpaceX" style={{ width: 400, display: 'block', margin: 'auto' }} />
+            <div className="row">
+              <div className="col-md-4 mx-auto">
+                <img src={logo} alt="SpaceX" className="w-100" />
+              </div>
+            </div>
             <Route exact path="/" component={Launches} />
             <Route exact path="/launch/:flight_number" component={Launch} />
           </div>
